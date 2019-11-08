@@ -1,0 +1,205 @@
+{
+  "v": 1,
+  "id": "1c17d098-cb3f-47c9-a7ad-b6f8409e8d70",
+  "rev": 1,
+  "name": "BTK USOM Blacklist Content Pack",
+  "summary": "BTK USOM Blacklist Content Pack",
+  "description": "BTK USOM Blacklist Content Pack",
+  "vendor": "NES",
+  "url": "",
+  "parameters": [],
+  "entities": [
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "7d1ef9b8-4e2a-41e3-8730-a04a72d6731a",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "USOM Zararli Baglantilar: qname"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "USOM Zararlı Bağlantılar"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"USOM Zararli Baglantilar: qname\"\nwhen\n  has_field(\"qname\")\nthen\n  let val = lookup_value(\"usom-local\", to_string($message.qname), \"False\");\n  set_field(\"usom\", to_string(val));\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "lookup_adapter",
+        "version": "1"
+      },
+      "id": "4a800f44-7f04-4640-87af-4c426e421641",
+      "data": {
+        "name": {
+          "@type": "string",
+          "@value": "usom-local"
+        },
+        "title": {
+          "@type": "string",
+          "@value": "USOM-Local"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "USOM Zararli Baglantilar"
+        },
+        "configuration": {
+          "type": {
+            "@type": "string",
+            "@value": "csvfile"
+          },
+          "path": {
+            "@type": "string",
+            "@value": "/etc/graylog/url-list.txt"
+          },
+          "separator": {
+            "@type": "string",
+            "@value": ","
+          },
+          "quotechar": {
+            "@type": "string",
+            "@value": "\""
+          },
+          "key_column": {
+            "@type": "string",
+            "@value": "url"
+          },
+          "value_column": {
+            "@type": "string",
+            "@value": "address"
+          },
+          "check_interval": {
+            "@type": "long",
+            "@value": 60
+          },
+          "case_insensitive_lookup": {
+            "@type": "boolean",
+            "@value": true
+          }
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "lookup_cache",
+        "version": "1"
+      },
+      "id": "c1d08ac1-22ff-4961-a489-50a9ccac1bec",
+      "data": {
+        "name": {
+          "@type": "string",
+          "@value": "usom-local"
+        },
+        "title": {
+          "@type": "string",
+          "@value": "USOM-Local"
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        },
+        "configuration": {
+          "type": {
+            "@type": "string",
+            "@value": "guava_cache"
+          },
+          "max_size": {
+            "@type": "integer",
+            "@value": 100000
+          },
+          "expire_after_access": {
+            "@type": "long",
+            "@value": 60
+          },
+          "expire_after_access_unit": {
+            "@type": "string",
+            "@value": "SECONDS"
+          },
+          "expire_after_write": {
+            "@type": "long",
+            "@value": 0
+          }
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "lookup_table",
+        "version": "1"
+      },
+      "id": "374c40a3-e9f9-491a-823a-c371e55643f4",
+      "data": {
+        "default_single_value_type": {
+          "@type": "string",
+          "@value": "NULL"
+        },
+        "cache_name": {
+          "@type": "string",
+          "@value": "c1d08ac1-22ff-4961-a489-50a9ccac1bec"
+        },
+        "name": {
+          "@type": "string",
+          "@value": "usom-local"
+        },
+        "default_multi_value_type": {
+          "@type": "string",
+          "@value": "NULL"
+        },
+        "default_multi_value": {
+          "@type": "string",
+          "@value": ""
+        },
+        "data_adapter_name": {
+          "@type": "string",
+          "@value": "4a800f44-7f04-4640-87af-4c426e421641"
+        },
+        "title": {
+          "@type": "string",
+          "@value": "USOM-Local"
+        },
+        "default_single_value": {
+          "@type": "string",
+          "@value": ""
+        },
+        "description": {
+          "@type": "string",
+          "@value": ""
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    }
+  ]
+}
