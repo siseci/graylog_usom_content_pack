@@ -5,8 +5,11 @@ Graylog and USOM Blacklist Integration
 This content includes following configurations.
 
 USOM-Local - Lookup Adapter
+
 USOM-Local - Lookup Cache
+
 USOM-Local - Lookup Table
+
 Usom Zararli Baglantilar:qname - Pipeline Rule
 
 Blacklist URL: https://www.usom.gov.tr/url-list.txt
