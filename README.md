@@ -2,7 +2,7 @@
 
 Graylog and USOM Blacklist Integration
 
-This content includes following configurations.
+This content pack includes following configurations.
 
 * USOM-Local - Lookup Adapter
 * USOM-Local - Lookup Cache
